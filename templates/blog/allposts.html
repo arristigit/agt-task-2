@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-3">
+    <h2>Mental Health</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for mh in mentalHealth %}
+        <div class="col">
+            <div class="card">
+                <img src="{{mh.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{mh.title}}</h5>
+                    <p class="card-text">{{mh.summary|truncatewords:15}}</p>
+                </div>
+                <a href="/showpost/{{mh.id}}" class="btn btn-primary m-2">Continue reading {{mh.id}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-3">Heart Disease</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for mh in heartDisease %}
+        <div class="col">
+            <div class="card">
+                <img src="{{mh.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{mh.title}}</h5>
+                    <p class="card-text">{{mh.summary|truncatewords:15}}</p>
+                </div>
+                <a href="/showpost/{{mh.id}}" class="btn btn-primary m-2">Continue reading {{mh.id}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-3">Covid 19</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for mh in covid19 %}
+        <div class="col">
+            <div class="card">
+                <img src="{{mh.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{mh.title}}</h5>
+                    <p class="card-text">{{mh.summary|truncatewords:15}}</p>
+                </div>
+                <a href="/showpost/{{mh.id}}" class="btn btn-primary m-2">Continue reading {{mh.id}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-3">Immunization</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for mh in immunization %}
+        <div class="col">
+            <div class="card">
+                <img src="{{mh.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{mh.title}}</h5>
+                    <p class="card-text">{{mh.summary|truncatewords:15}}</p>
+                </div>
+                <a href="/showpost/{{mh.id}}" class="btn btn-primary m-2">Continue reading {{mh.id}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock body %}

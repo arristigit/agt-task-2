@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container mt-3">
+    <h2>Update: {{post.title}}</h2>
+    <form class="row g-3 mt-2" method='POST' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <input type="hidden" value="{{post.id}}" name="postId">
+        <div class="col-md-3">
+            <h4>Title:</h4>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control" name="title" value="{{post.title}}"
+                placeholder="Enter suitable title for the blog post" required>
+        </div>
+        <div class="col-md-3">
+            <h4>Image:</h4>
+        </div>
+        <div class="col-4">
+            <input type="file" class="form-control" name="image">
+        </div>
+        <div class="col-5">
+            <img src="{{post.image}}" width="100%">
+        </div>
+        <div class="col-md-3">
+            <h4>Category:</h4>
+            <!-- <p>Previous Category: {{post.category}}</p> -->
+        </div>
+        <div class="col-9">
+            <select class="form-select" aria-label="Default select example" name="category" required>
+                <option value="mentalHealth" selected>-- Select a category --</option>
+                <option value="mentalHealth">Mental Health</option>
+                <option value="heartDisease">Heart Disease</option>
+                <option value="covid19">Covid 19</option>
+                <option value="immunization">Immunization</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <h4>Summary:</h4>
+        </div>
+        <!-- <div class="col-9">         -->
+        <div class="col-9 form-floating">
+            <textarea class="form-control" name="summary" placeholder="summary"
+                style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Brief summary</label>
+            <p>
+                <button class="btn btn-primary mt-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Previous Summary
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    {{post.summary}}
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <h4>Content:</h4>
+        </div>
+        <div class="col-9 form-floating">
+            <textarea class="form-control" name="content" placeholder="summary"
+                style="height: 250px"></textarea>
+            <label for="floatingTextarea2">Brief summary</label>
+            <p>
+                <button class="btn btn-primary mt-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsecontent" aria-expanded="false" aria-controls="collapseExample">
+                    Previous Content
+                </button>
+            </p>
+            <div class="collapse" id="collapsecontent">
+                <div class="card card-body">
+                    {{post.content}}
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-9">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="is_draft" checked>
+                <label class="form-check-label">Mark the post as draft</label>
+            </div>
+        </div>
+        <div class="col-12 mb-3 d-grid gap-2 mx-auto">
+            <button type="submit" class="btn btn-success btn-xl">Update Post</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}
