@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-3">
+    <h2>Schedule Appointment</h2>
+    <form class="row g-3 mt-2" method='POST' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <input type="hidden" value="{{request.user}}" name="author">
+        <div class="col-md-3">
+            <h4>Required Speciality:</h4>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control" name="requiredspeciality" placeholder="Enter Required Speciality"
+                required>
+        </div>
+        <div class="col-md-3">
+            <h4>Date of Appointment:</h4>
+        </div>
+        <div class="col-md-9">
+            <input type="date" class="form-control" name="dateofappointment" placeholder="Enter Required Speciality"
+                required>
+        </div>
+        <div class="col-md-3">
+            <h4>Time of Appointment:</h4>
+        </div>
+        <div class="col-md-9">
+            <input type="time" class="form-control" name="timeofappointment" placeholder="Enter Required Speciality"
+                required>
+        </div>
+
+        <div class="col-12 mb-3 d-grid gap-2 mx-auto">
+            <button type="submit" class="btn btn-success btn-xl">Confirm</button>
+        </div>
+    </form>
+</div>
+{% endblock body %}

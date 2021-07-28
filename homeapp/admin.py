@@ -5,3 +5,4 @@ from homeapp.models import *
 admin.site.register(Patient)
 admin.site.register(Doctor)
 admin.site.register(Post)
+admin.site.register(Appointment)

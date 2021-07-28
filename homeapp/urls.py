@@ -13,4 +13,9 @@ urlpatterns = [
     path('myposts', views.myposts, name='myposts'),
     path('showpost/<int:id>', views.showpost, name='showpost'),
     path('updatepost/<int:id>', views.updatepost, name='updatepost'),
+
+    path('listdoctors', views.listdoctors, name='listdoctors'),
+    path('bookappointment/<int:id>', views.bookappointment, name='bookappointment'),
+    path('appointmentdetails', views.appointmentdetails, name='appointmentdetails'),
+
 ]

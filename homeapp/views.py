@@ -50,7 +50,7 @@ def patient(request):
             current_user = User.objects.filter(username=username).first()            
             patient_obj = Patient(user=current_user, pic=url, address=address, city=city, state=state, zip=zip)
             patient_obj.save()
-            messages.warning(request, f'{firstname}, you have successfully sign up.')
+            messages.success(request, f'{firstname}, you have successfully sign up.')
             return redirect('/')
 
         except Exception as e:
@@ -103,9 +103,9 @@ def doctor(request):
             url = fs.url(filename)
 
             current_user = User.objects.filter(username=username).first()
-            doctor_obj = Doctor(user=current_user, pic=url, address=address, city=city, state=state, zip=zip)
+            doctor_obj = Doctor(user=current_user, firstname=firstname, lastname=lastname, pic=url, address=address, city=city, state=state, zip=zip)
             doctor_obj.save()
-            messages.warning(request, f'{firstname}, you have successfully sign up.')
+            messages.success(request, f'{firstname}, you have successfully sign up.')
             return redirect('/')
 
         except Exception as e:
@@ -284,6 +284,7 @@ def newpost(request):
         post.save()
         messages.success(request, 'The post have been uploaded successfully.')
         return redirect('/myposts')
+        
     return render(request, 'blog/newpost.html')
 
 @login_required
@@ -330,3 +331,51 @@ def updatepost(request, id):
         return redirect('/myposts')
 
     return render(request, 'blog/updatepost.html', {'post':post})
+
+@login_required
+def listdoctors(request):
+    doctors = Doctor.objects.all()
+    appointment = Appointment.objects.filter(id=1).first()
+    print(type(appointment.start_time_of_appointment))
+    return render(request, 'appointment/listdoctors.html', {'doctors': doctors})
+
+@login_required
+def bookappointment(request, id):
+    if request.method == "POST":
+        requiredspeciality = request.POST.get('requiredspeciality')
+        dateofappointment = request.POST.get('dateofappointment')
+        timeofappointment = request.POST.get('timeofappointment')
+
+        doctor = Doctor.objects.filter(id=id).first()
+
+        appointment = Appointment(doctor=doctor, required_speciality=requiredspeciality, date_of_appointment=dateofappointment, start_time_of_appointment=timeofappointment)
+        appointment.save()
+        request.session['doctor_id'] = doctor.id
+        request.session['appointment_id'] = appointment.id
+        messages.success(request, 'The appointment have been scheduled successfully.')
+        return redirect('/appointmentdetails')
+
+    return render(request, 'appointment/bookappointment.html') 
+
+@login_required
+def appointmentdetails(request):
+    doctor_id = request.session['doctor_id']     
+    appointment_id = request.session['appointment_id']     
+    doctor = Doctor.objects.filter(id=doctor_id).first()
+    appointment = Appointment.objects.filter(id=appointment_id).first()
+    start_time_of_appointment = str(appointment.start_time_of_appointment)
+    end_time_of_appointment = sumTime(str(appointment.start_time_of_appointment), '00:45:00')
+    context = {'doctor': doctor, 'appointment': appointment, 'start_time_of_appointment': start_time_of_appointment, 'end_time_of_appointment': end_time_of_appointment}
+    return render(request, 'appointment/appointmentdetails.html', context)
+
+def sumTime(t1, t2):
+    import datetime
+    timeList = [t1, t2]
+    mysum = datetime.timedelta() # =0:00:00
+    for i in timeList:
+        (h, m, s) = i.split(':')
+        d = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+        mysum += d
+    return str(mysum)
+
+# print(str(mysum))

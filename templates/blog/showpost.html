@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container ">
+<div class="container">
     <h1>Title: {{post.title}}</h1>
     <img src="{{post.image}}" class="img-fluid" width="50%">
     <h2>Category: {{post.category}}</h2>
@@ -9,6 +9,5 @@
     <p>{{post.summary}}</p>
     <h2>Content:</h2>
     <p>{{post.content}}</p>
-
 </div>
 {% endblock body %}
